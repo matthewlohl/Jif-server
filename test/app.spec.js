@@ -1,6 +1,8 @@
+
 const request = require ('supertest');
-// const { describe } = require('yargs');
+
 const app = require('../app');
+const data = require('../data')
 
 describe ('api server', () => {
     let api;
@@ -11,10 +13,7 @@ describe ('api server', () => {
         })
     })
 
-    afterAll ((done) => {
-        console.log('Stopping test server')
-        api.close(done)
-    })
+
 
 
         
@@ -26,6 +25,13 @@ describe ('api server', () => {
 
     
     // Test get /ipj with 200 status 
+    test('it gets /ipj and responds with data', (done) => {
+        request(api)
+            .get('/ipj')
+            .expect(data, done)
+    })
+
+
 
 
 
@@ -40,6 +46,14 @@ describe ('api server', () => {
 
 
     // Test get /ipj/'outOfRang' with 404 status
+
+    test ('it responds to a out of range post with a 404', (done) => {
+        request(api)
+            .get('/ipj/40')
+            .expect(404)
+            .expect({message: 'This post id does not exist'},done);
+    })
+
     test ('it responds to a out of range post with a 404', (done) => {
         request(api)
             .get('/ipj/40')
@@ -49,9 +63,25 @@ describe ('api server', () => {
 
 
 
+
     // Test delete /ipj/:id with status 204
+    test('it responds to delete id with status 204', (done) => {
+        request(api)
+         .delete('/ipj/:id')
+         .expect(204,done)
+    })
 
+    // Test that delete function works 
 
+    test('it deletes a specific id form the data', () => {
+        const deletedElement = data[1].id
+        
+        request(api)
+         .delete('/ipj/2')
+            expect(deletedElement).toEqual(2)
+    })
+
+    // Test fo rgetting the correct element id
 
 
     // Test post to /ipj with status 201
@@ -82,6 +112,10 @@ describe ('api server', () => {
         })
     
     
+    afterAll ((done) => {
+        console.log('Stopping test server')
+        api.close(done)
+    })
 
     
 })
