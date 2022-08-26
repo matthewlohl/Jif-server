@@ -9,24 +9,46 @@ const data = require('./data')
 
 
 // GET data
-
+app.get('/ipj', (req, res) => {
+  res.json(data)
+})
 
 
 
 
 // GET individual Id
-
+app.get('/ipj/:id', (req,res) => {
+  
+    try{
+        const dataId = parseInt(req.params.id)
+        const selectedData = data.find(data => data.id === dataId)
+        if(req.params.id === 'new' ){
+            res.status(200).send();
+        }else if(!selectedData){
+            throw new Error('This journal entry does not exist')
+        }else{
+        res.send(selectedData)}
+      }catch(err){
+        res.status(404).send({
+            message: err.message
+        })
+      }
+    
+})
 
 
 
 
 // Delete ID 
+app.delete('/ipj/:id', (req,res) => {
+  
+    const index = data.findIndex(data => data.id === parseInt(req.params.id));
+    data.splice(index,1);
+    res.status(204).end();
+    
+})
 
 
-
-
-
-// GET new 
 
 
 // POST 
@@ -39,6 +61,7 @@ app.post('/ipj', (req, res) => {
     const newEmoji = req.body.emoji
     const newComment = req.body.comment
     const newPost = {id: newId, title: newTitle, date: newDate, text: newText, gif: newGif, emoji: newEmoji, comment: newComment}
+    data.push(newPost)
     res.status(201).send(newPost)
 })
 
@@ -71,4 +94,6 @@ app.get('/ipj/:id/edit', (req, res) => {
 })
 
 
+
 module.exports = app;
+
