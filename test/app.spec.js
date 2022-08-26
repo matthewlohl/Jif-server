@@ -1,13 +1,13 @@
 const request = require ('supertest');
-const { describe } = require('yargs');
+// const { describe } = require('yargs');
 const app = require('../app');
 
 describe ('api server', () => {
     let api;
 
     beforeAll (() => {
-        api = app.listen(5000, () => {
-            console.log('Test sever running on port 5000')
+        api = app.listen(8000, () => {
+            console.log('Test sever running on port 8000')
         })
     })
 
@@ -44,7 +44,7 @@ describe ('api server', () => {
         request(api)
             .get('/ipj/40')
             .expect(404)
-            .expect({message: 'This post id does not exist'},done);
+            .expect({message: 'This journal entry does not exist'},done);
     })
 
 
@@ -56,6 +56,30 @@ describe ('api server', () => {
 
     // Test post to /ipj with status 201
     
+    test ('it responds to post /ipj with a status 201 status', (done) => {
+        const testData= {
+                "title": "Test 5",
+                "date": "03122021",
+                "text": "Animated gifs and lores images from the classic 1980 Namco arcade game Pac-Man. Fun images to share with friends, and userful resources for web designers. To save these images, right click and select SAVE AS. Please be patient and allow the page to load (there are alot of images on this page).",
+                "gif": "https://i.imgur.com/a3u5DxA.gif",
+                "emoji": [
+                "&#128077;",
+                "&#128078;",
+                "&#129505;"
+                ],
+                "comment": [
+                "This is a very great post",
+                "I love it",
+                "very boring",
+                "My favourite gif!!!!"
+                ]
+            }
+        request(api)
+            .post('/ipj')
+            .send(testData)
+            .expect(201)
+            .expect({...testData, id: 5},done )
+        })
     
     
 
