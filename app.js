@@ -7,12 +7,15 @@ const data = require('./data')
 
 
 
-
 // GET data
 app.get('/ipj', (req, res) => {
   res.json(data)
 })
 
+// GET random
+app.get('/ipj/random', (req, res) => {
+    res.send(data[Math.floor(Math.random() * data.length)])
+})
 
 
 
@@ -23,6 +26,7 @@ app.get('/ipj/:id', (req,res) => {
         const dataId = parseInt(req.params.id)
         const selectedData = data.find(data => data.id === dataId)
         if(req.params.id === 'new' ){
+            console.log(res.body)
             res.status(200).send();
         }else if(!selectedData){
             throw new Error('This journal entry does not exist')
@@ -66,32 +70,13 @@ app.post('/ipj', (req, res) => {
 })
 
 
-// GET random
 
-app.get('/ipj/random', (req, res) => {
-    res.send(data[Math.floor(Math.random() * data.length)])
-})
+
 
 
 // GET edit 
 
-app.get('/ipj/:id/edit', (req, res) => {
-    try{
-        const id = req.body.id
-        const newComment = req.body.comment;
-        const newEmoji = req.body.newEmoji;
 
-        const comment = data[id].comment
-        const emoji = data[id].emoji
-        comment.push(newComment)
-        emoji.push(newEmoji)
-        res.status(201).put('not sure what to put in')
-    }
-
-    catch(err){
-        res.status(404).send({message: err.message})
-    }
-})
 
 
 
