@@ -7,7 +7,6 @@ const data = require('./data')
 
 
 
-
 // GET data
 app.get('/ipj', (req, res) => {
 
@@ -15,6 +14,10 @@ app.get('/ipj', (req, res) => {
   res.status(200).send()
 })
 
+// GET random
+app.get('/ipj/random', (req, res) => {
+    res.send(data[Math.floor(Math.random() * data.length)])
+})
 
 
 
@@ -25,6 +28,7 @@ app.get('/ipj/:id', (req,res) => {
         const dataId = parseInt(req.params.id)
         const selectedData = data.find(data => data.id === dataId)
         if(req.params.id === 'new' ){
+            console.log(res.body)
             res.status(200).send();
             
         } else if(!selectedData){
@@ -69,14 +73,12 @@ app.post('/ipj', (req, res) => {
 })
 
 
-// GET random
 
-app.get('/ipj/random', (req, res) => {
-    res.send(data[Math.floor(Math.random() * data.length)])
-})
+
 
 
 // GET edit 
+
 
 app.get('/ipj/:id/edit', (req, res) => {
 
