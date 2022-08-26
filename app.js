@@ -17,7 +17,24 @@ app.get('/ipj', (req, res) => {
 
 
 // GET individual Id
-
+app.get('/ipj/:id', (req,res) => {
+  
+    try{
+        const dataId = parseInt(req.params.id)
+        const selectedData = data.find(data => data.id === dataId)
+        if(req.params.id === 'new' ){
+            res.status(200).send();
+        }else if(!selectedData){
+            throw new Error('This journal entry does not exist')
+        }else{
+        res.send(selectedData)}
+      }catch(err){
+        res.status(404).send({
+            message: err.message
+        })
+      }
+    
+})
 
 
 
@@ -32,8 +49,6 @@ app.delete('/ipj/:id', (req,res) => {
 })
 
 
-
-// GET new 
 
 
 // POST 
