@@ -9,7 +9,9 @@ const data = require('./data')
 
 
 // GET data
-
+app.get('/ipj', (req, res) => {
+  res.json(data)
+})
 
 
 
@@ -21,8 +23,13 @@ const data = require('./data')
 
 
 // Delete ID 
-
-
+app.delete('/ipj/:id', (req,res) => {
+  
+    const index = data.findIndex(data => data.id === parseInt(req.params.id));
+    data.splice(index,1);
+    res.status(204).end();
+    
+})
 
 
 
@@ -41,3 +48,4 @@ const data = require('./data')
 // GET edit 
 
 
+module.exports = app;
