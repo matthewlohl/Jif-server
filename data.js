@@ -39,3 +39,5 @@ const data = [
         comment: ["Oh he's called Gavin?", 'What?!?', 'muahhh', 'Love it']
     }
 ]
+
+module.exports = data;
