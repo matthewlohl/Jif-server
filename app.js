@@ -72,27 +72,43 @@ app.post('/ipj', (req, res) => {
     res.status(201).send(newPost)
 })
 
+app.post('/comment', (req, res) => {
+    const index = data.findIndex(data => data.id === req.body.id);
+    console.log(index)
+    const newComment = req.body.comment
+    console.log(newComment)
+    data[index].comment.push(newComment)
+    res.status(201).send(newComment)
+})
 
 
+app.post('/emoji', (req,res) => {
+    const index = data.findIndex(data => data.id === req.body.id);
+    console.log(index)
+    const newEmoji = req.body.emoji;
+    console.log(newEmoji)
+    data[index].emoji.push(newEmoji)
+    res.status(201).send(newEmoji)
+})
 
 
 
 // GET edit 
 
 
-app.get('/ipj/:id/edit', (req, res) => {
+// app.get('/ipj/:id/edit', (req, res) => {
 
-        const id = req.body.id
-        const newComment = req.body.comment;
-        // const newEmoji = req.body.newEmoji;
-        console.log(id);
-        console.log(newComment);
-        const comment = data[id].comment
-        // const emoji = data[id].emoji
-        comment.push(newComment)
-        // emoji.push(newEmoji)
-        res.status(201).put('not sure what to put in')
-})
+//         const id = req.body.id
+//         const newComment = req.body.comment;
+//         // const newEmoji = req.body.newEmoji;
+//         console.log(id);
+//         console.log(newComment);
+//         const comment = data[id].comment
+//         // const emoji = data[id].emoji
+//         comment.push(newComment)
+//         // emoji.push(newEmoji)
+//         res.status(201).put('not sure what to put in')
+// })
 
 
 
