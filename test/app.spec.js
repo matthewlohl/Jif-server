@@ -4,6 +4,8 @@ const request = require ('supertest');
 const app = require('../app');
 const data = require('../data')
 
+
+
 describe ('api server', () => {
     let api;
 
@@ -13,7 +15,10 @@ describe ('api server', () => {
         })
     })
 
-
+    afterAll ((done) => {
+        console.log('Stopping test server')
+        api.close(done)
+    })
 
 
         
@@ -59,7 +64,7 @@ describe ('api server', () => {
 
 
     // Test delete /ipj/:id with status 204
-    test('it responds to delete id with status 204', (done) => {
+    xtest('it responds to delete id with status 204', (done) => {
         request(api)
          .delete('/ipj/:id')
          .expect(204,done)
@@ -67,20 +72,58 @@ describe ('api server', () => {
 
     // Test that delete function works 
 
-    test('it deletes a specific id form the data', () => {
-        const deletedElement = data[1].id
+    xtest('it deletes a specific id form the data', () => {
+        const deletedElement = data[0].id
         
         request(api)
          .delete('/ipj/2')
             expect(deletedElement).toEqual(2)
     })
 
-    // Test fo rgetting the correct element id
+    // Test to see if /comment posts a comment 
+
+    test('it posts a new comment', (done) => {
+       const testComment = {
+        id:2,
+        comment: "amazing read"
+       }
+
+       request(api)
+       .post('/comment')
+       .send(testComment)
+       .expect((res) => {
+        res.body.data[1].comment[3] = "amazing read"
+       
+      },done)
+       
+       
+     
+    //     app.post(fakePostEvent);
+    //     expect(fetch.mock.calls[0][1]).toHaveProperty('method', 'POST');
+    //     expect(fetch.mock.calls[0][1]).toHaveProperty('body', JSON.stringify({ name: "Bob", age: 4 }));
+        
+           
+    })
+    // Test to see if /emoji posts an emoji
+    
+    // test('it posts a new emoji', (done) => {
+    //     const testEmoji = {
+    //         "id": 2,
+    //         "emoji": "&#128077;"
+                  
+    //     }
+
+
+    //     request(api)
+    //         .post('/emoji')
+    //         .send(testEmoji)
+    //     expect(data[1].emoji).toContain("&#128077;")
+    // })
 
 
     // Test post to /ipj with status 201
     
-    test ('it responds to post /ipj with a status 201 status', (done) => {
+    xtest ('it responds to post /ipj with a status 201 status', (done) => {
         const testData= {
                 "title": "Test 5",
                 "date": "03122021",
@@ -109,7 +152,11 @@ describe ('api server', () => {
     afterAll ((done) => {
         console.log('Stopping test server')
         api.close(done)
+
     })
 
     
 })
+
+
+
