@@ -28,7 +28,7 @@ app.get('/ipj/:id', (req,res) => {
         const dataId = parseInt(req.params.id)
         const selectedData = data.find(data => data.id === dataId)
         if(req.params.id === 'new' ){
-            console.log(res.body)
+         
             res.status(200).send();
             
         } else if(!selectedData){
@@ -73,7 +73,7 @@ app.post('/ipj', (req, res) => {
 })
 
 app.post('/comment', (req, res) => {
-    const index = data.findIndex(data => data.id === req.body.id);
+    const index = data.findIndex(data => data.id === parseInt(req.body.id));
     console.log(index)
     const newComment = req.body.comment
     console.log(newComment)
@@ -83,7 +83,7 @@ app.post('/comment', (req, res) => {
 
 
 app.post('/emoji', (req,res) => {
-    const index = data.findIndex(data => data.id === req.body.id);
+    const index = data.findIndex(data => data.id === parseInt(req.body.id));
     console.log(index)
     const newEmoji = req.body.emoji;
     console.log(newEmoji)
