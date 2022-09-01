@@ -5,7 +5,7 @@ app.use(cors());
 app.use(express.json());
 const data = require('./data')
 
-
+app.get('/', (req, res) => res.send('Welcome to jif server'))
 
 // GET data
 app.get('/ipj', (req, res) => {
