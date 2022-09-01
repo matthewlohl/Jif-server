@@ -5,7 +5,7 @@ app.use(cors());
 app.use(express.json());
 const data = require('./data')
 
-
+app.get('/', (req, res) => res.send('Welcome to jif server'))
 
 // GET data
 app.get('/ipj', (req, res) => {
@@ -67,8 +67,8 @@ app.post('/ipj', (req, res) => {
     const newDate = req.body.date
     const newText = req.body.text
     const newGif = req.body.gif
-    const newEmoji = []
-    const newComment = []
+    const newEmoji = [];
+    const newComment = [];
     const newPost = {id: newId, title: newTitle, date: newDate, text: newText, gif: newGif, emoji: newEmoji, comment: newComment}
     data.push(newPost)
     res.status(201).send(newPost)

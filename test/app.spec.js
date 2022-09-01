@@ -52,12 +52,6 @@ describe ('api server', () => {
 
     // Test get /ipj/'outOfRang' with 404 status
 
-    test ('it responds to a out of range post with a 404', (done) => {
-        request(api)
-            .get('/ipj/40')
-            .expect(404)
-            .expect({message: 'This journal entry does not exist'},done);
-    })
 
     test ('it responds to a out of range post with a 404', (done) => {
         request(api)
@@ -151,7 +145,14 @@ describe ('api server', () => {
             .post('/ipj')
             .send(testData)
             .expect(201)
-            .expect({id: 4,...testData},done )
+            .expect({...testData, id: 4},done )
+        })
+    
+    
+    afterAll ((done) => {
+        console.log('Stopping test server')
+        api.close(done)
+
     })
 
     

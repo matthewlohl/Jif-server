@@ -23,7 +23,9 @@ const data = [
         id : 3,
         title: "Leonardo Cheers",
         date: "12162017",
-        text: "With drink in hand, Leonardo DiCaprio’s been ",
+
+        text: "With drink in hand, Leonardo DiCaprio’s been cheers-ing for practically his entire acting career. Many on the Internet quickly realized this ",
+
         gif: "https://c.tenor.com/j9RiUvoQK5YAAAAM/cheers-leonardo-dicaprio.gif",
         emoji: ['&#128077;','&#128078;','&#129505;'],
         comment: ['I love Leonardo', 'HAHAHHAA', 'muahhh', 'Love it']
