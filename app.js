@@ -17,7 +17,7 @@ app.get('/ipj', (req, res) => {
 // GET random
 app.get('/ipj/random', (req, res) => {
 
-    res.send(data[Math.floor(Math.random() * data.length)+1])
+    res.send(data[Math.floor(Math.random() * data.length)])
 })
 
 
