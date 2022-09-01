@@ -16,7 +16,8 @@ app.get('/ipj', (req, res) => {
 
 // GET random
 app.get('/ipj/random', (req, res) => {
-    res.send(data[Math.floor(Math.random() * data.length)])
+
+    res.send(data[Math.floor(Math.random() * data.length)+1])
 })
 
 
@@ -60,7 +61,8 @@ app.delete('/ipj/:id', (req,res) => {
 
 // POST 
 app.post('/ipj', (req, res) => {
-    const newId = data.length + 1;
+    
+    const newId = data[data.length-1].id + 1;
     const newTitle = req.body.title
     const newDate = req.body.date
     const newText = req.body.text
