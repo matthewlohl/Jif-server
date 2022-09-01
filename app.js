@@ -65,8 +65,8 @@ app.post('/ipj', (req, res) => {
     const newDate = req.body.date
     const newText = req.body.text
     const newGif = req.body.gif
-    const newEmoji = req.body.emoji
-    const newComment = req.body.comment
+    const newEmoji = [];
+    const newComment = [];
     const newPost = {id: newId, title: newTitle, date: newDate, text: newText, gif: newGif, emoji: newEmoji, comment: newComment}
     data.push(newPost)
     res.status(201).send(newPost)
